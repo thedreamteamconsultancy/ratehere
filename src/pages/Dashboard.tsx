@@ -6,9 +6,10 @@ import { db, storage } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
 import Navigation from '@/components/Navigation';
 import ProfileCard from '@/components/ProfileCard';
+import AnalyticsDashboard from '@/components/AnalyticsDashboard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Plus, Trash2, Edit } from 'lucide-react';
+import { Plus, Trash2, Edit, BarChart3 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   AlertDialog,
@@ -20,6 +21,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface Profile {
   id: string;
@@ -28,6 +36,7 @@ interface Profile {
   logoUrl: string;
   rating: number;
   ratingCount: number;
+  verified?: boolean;
 }
 
 export default function Dashboard() {
@@ -36,6 +45,7 @@ export default function Dashboard() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [analyticsProfile, setAnalyticsProfile] = useState<{id: string, name: string} | null>(null);
 
   useEffect(() => {
     if (!user) {
@@ -167,8 +177,21 @@ export default function Dashboard() {
                       className="bg-background/95 backdrop-blur hover:bg-primary hover:text-primary-foreground"
                       onClick={(e) => {
                         e.preventDefault();
+                        setAnalyticsProfile({id: profile.id, name: profile.name});
+                      }}
+                      title="View Analytics"
+                    >
+                      <BarChart3 className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="outline"
+                      className="bg-background/95 backdrop-blur hover:bg-primary hover:text-primary-foreground"
+                      onClick={(e) => {
+                        e.preventDefault();
                         navigate(`/edit-profile/${profile.id}`);
                       }}
+                      title="Edit Profile"
                     >
                       <Edit className="w-4 h-4" />
                     </Button>
@@ -179,6 +202,7 @@ export default function Dashboard() {
                         e.preventDefault();
                         setDeleteId(profile.id);
                       }}
+                      title="Delete Profile"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -207,6 +231,18 @@ export default function Dashboard() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={analyticsProfile !== null} onOpenChange={() => setAnalyticsProfile(null)}>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Profile Analytics</DialogTitle>
+            <DialogDescription>
+              View detailed analytics and insights for your profile
+            </DialogDescription>
+          </DialogHeader>
+          {analyticsProfile && <AnalyticsDashboard profileId={analyticsProfile.id} profileName={analyticsProfile.name} />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
