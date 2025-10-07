@@ -8,105 +8,185 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 30% 98%;
-    --foreground: 220 70% 12%;
+    /* Premium Light Mode Color System */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 70% 12%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 70% 12%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 220 85% 35%;
+    /* Premium Primary Colors - Deep Professional Blue */
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 220 70% 92%;
-    --primary-hover: 220 85% 28%;
+    --primary-light: 221 83% 95%;
+    --primary-hover: 221 83% 45%;
+    --primary-dark: 221 83% 35%;
 
-    --secondary: 220 25% 94%;
-    --secondary-foreground: 220 70% 25%;
+    /* Premium Secondary Colors - Elegant Slate */
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 215 20% 95%;
 
-    --muted: 220 20% 94%;
-    --muted-foreground: 220 25% 45%;
+    /* Muted Colors - Soft Neutral */
+    --muted: 210 20% 97%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 220 95% 50%;
+    /* Accent Colors - Vibrant Cyan */
+    --accent: 199 89% 48%;
     --accent-foreground: 0 0% 100%;
-    --accent-light: 220 95% 95%;
+    --accent-light: 199 89% 95%;
+    --accent-dark: 199 89% 35%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Success Color - Fresh Green */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 142 76% 95%;
+
+    /* Warning Color - Warm Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 38 92% 95%;
+
+    /* Destructive Color - Refined Red */
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
+    --destructive-light: 0 72% 97%;
 
-    --border: 220 25% 88%;
-    --input: 220 25% 88%;
-    --ring: 220 85% 35%;
+    /* UI Elements */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
 
-    --radius: 0.875rem;
+    /* Border Radius */
+    --radius: 0.75rem;
     
-    --gradient-hero: linear-gradient(135deg, hsl(220, 85%, 35%) 0%, hsl(220, 85%, 48%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(220, 70%, 98%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(220, 95%, 50%) 0%, hsl(220, 85%, 60%) 100%);
-    --shadow-premium: 0 20px 60px -15px hsl(220, 85%, 35% / 0.25);
-    --shadow-card: 0 8px 24px -6px hsl(220, 85%, 35% / 0.12);
-    --shadow-hover: 0 12px 32px -8px hsl(220, 85%, 35% / 0.18);
-    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Premium Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(221, 83%, 53%) 0%, hsl(199, 89%, 48%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(221, 83%, 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(199, 89%, 48%) 0%, hsl(221, 83%, 53%) 100%);
+    --gradient-premium: linear-gradient(135deg, hsl(221, 83%, 53%) 0%, hsl(265, 89%, 48%) 35%, hsl(199, 89%, 48%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+    
+    /* Premium Shadows */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 2px 4px -1px rgb(0 0 0 / 0.06), 0 2px 4px -1px rgb(0 0 0 / 0.04);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -1px rgb(0 0 0 / 0.04);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -2px rgb(0 0 0 / 0.04);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+    --shadow-premium: 0 20px 60px -15px hsl(221 83% 53% / 0.3);
+    --shadow-card: 0 8px 24px -6px hsl(221 83% 53% / 0.12);
+    --shadow-hover: 0 12px 32px -8px hsl(221 83% 53% / 0.2);
+    --shadow-glow: 0 0 20px hsl(221 83% 53% / 0.5);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 97%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 221 83% 53%;
   }
 
   .dark {
-    --background: 220 70% 8%;
-    --foreground: 220 20% 95%;
+    /* Premium Dark Mode Color System */
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
 
-    --card: 220 70% 10%;
-    --card-foreground: 220 20% 95%;
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 220 70% 10%;
-    --popover-foreground: 220 20% 95%;
+    --popover: 222 47% 6%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 220 60% 70%;
-    --primary-foreground: 220 70% 10%;
-    --primary-light: 220 70% 15%;
+    /* Premium Primary Colors - Bright Elegant Blue */
+    --primary: 221 83% 60%;
+    --primary-foreground: 222 47% 4%;
+    --primary-light: 221 83% 15%;
+    --primary-hover: 221 83% 70%;
+    --primary-dark: 221 83% 40%;
 
-    --secondary: 220 40% 15%;
-    --secondary-foreground: 220 20% 95%;
+    /* Premium Secondary Colors - Refined Dark Slate */
+    --secondary: 217 19% 27%;
+    --secondary-foreground: 210 40% 98%;
+    --secondary-light: 217 19% 12%;
 
-    --muted: 220 40% 15%;
-    --muted-foreground: 220 20% 65%;
+    /* Muted Colors - Sophisticated Neutral */
+    --muted: 217 19% 12%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 25 95% 55%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent Colors - Electric Cyan */
+    --accent: 199 89% 55%;
+    --accent-foreground: 222 47% 4%;
+    --accent-light: 199 89% 15%;
+    --accent-dark: 199 89% 45%;
 
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 0 0% 100%;
+    /* Success Color - Vibrant Green */
+    --success: 142 76% 45%;
+    --success-foreground: 222 47% 4%;
+    --success-light: 142 76% 12%;
 
-    --border: 220 40% 20%;
-    --input: 220 40% 20%;
-    --ring: 220 60% 70%;
+    /* Warning Color - Bright Amber */
+    --warning: 38 92% 60%;
+    --warning-foreground: 222 47% 4%;
+    --warning-light: 38 92% 12%;
+
+    /* Destructive Color - Vivid Red */
+    --destructive: 0 72% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --destructive-light: 0 72% 12%;
+
+    /* UI Elements */
+    --border: 217 19% 15%;
+    --input: 217 19% 15%;
+    --ring: 221 83% 60%;
+
+    /* Border Radius (same as light) */
+    --radius: 0.75rem;
     
-    --gradient-hero: linear-gradient(135deg, hsl(220, 70%, 12%) 0%, hsl(220, 60%, 20%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(220, 70%, 10%) 0%, hsl(220, 60%, 12%) 100%);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Premium Dark Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(221, 83%, 20%) 0%, hsl(199, 89%, 25%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(222, 47%, 6%) 0%, hsl(221, 83%, 10%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(199, 89%, 30%) 0%, hsl(221, 83%, 35%) 100%);
+    --gradient-premium: linear-gradient(135deg, hsl(221, 83%, 25%) 0%, hsl(265, 89%, 30%) 35%, hsl(199, 89%, 30%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    
+    /* Premium Dark Shadows with Glow */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-sm: 0 2px 4px -1px rgb(0 0 0 / 0.4), 0 2px 4px -1px rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6), 0 4px 6px -2px rgb(0 0 0 / 0.5);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.7), 0 10px 10px -5px rgb(0 0 0 / 0.6);
+    --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.8);
+    --shadow-premium: 0 20px 60px -15px hsl(221 83% 60% / 0.4), 0 0 30px -5px hsl(221 83% 60% / 0.2);
+    --shadow-card: 0 8px 24px -6px hsl(221 83% 60% / 0.2), 0 0 15px -3px hsl(221 83% 60% / 0.1);
+    --shadow-hover: 0 12px 32px -8px hsl(221 83% 60% / 0.3), 0 0 25px -5px hsl(221 83% 60% / 0.2);
+    --shadow-glow: 0 0 40px hsl(221 83% 60% / 0.6), 0 0 20px hsl(199 89% 55% / 0.4);
+    
+    /* Transitions (same as light) */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Sidebar */
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 221 83% 60%;
+    --sidebar-primary-foreground: 222 47% 4%;
+    --sidebar-accent: 217 19% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 19% 15%;
+    --sidebar-ring: 221 83% 60%;
   }
 }
 

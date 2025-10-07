@@ -59,21 +59,34 @@ export default function ReviewInput({
 
   if (!user) {
     return (
-      <div className="text-center py-6 bg-muted/30 rounded-lg">
-        <MessageSquare className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-        <p className="text-sm text-muted-foreground">
-          Sign in to write a review
+      <div className="text-center py-6 bg-muted/30 rounded-lg border-2 border-dashed border-muted">
+        <MessageSquare className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
+        <p className="text-sm font-medium text-foreground mb-2">
+          Want to add a comment?
         </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Sign in to rate and leave your feedback
+        </p>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => window.location.href = '/auth'}
+        >
+          Sign In to Comment
+        </Button>
       </div>
     );
   }
 
   if (!hasRated) {
     return (
-      <div className="text-center py-6 bg-muted/30 rounded-lg">
-        <MessageSquare className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-        <p className="text-sm text-muted-foreground">
-          Rate this profile first to write a review
+      <div className="text-center py-6 bg-muted/30 rounded-lg border-2 border-dashed border-muted">
+        <MessageSquare className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
+        <p className="text-sm font-medium text-foreground mb-2">
+          Add a Comment (Optional)
+        </p>
+        <p className="text-xs text-muted-foreground">
+          Rate this profile first, then you can add your comment
         </p>
       </div>
     );

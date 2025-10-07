@@ -2,20 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <!-- Primary Meta Tags -->
     <title>RateHere - Rate Anything, Discover Everything</title>
+    <meta name="title" content="RateHere - Rate Anything, Discover Everything" />
     <meta name="description" content="Create your profile, showcase your social links, and let the world rate you. Join the community where reputation matters." />
     <meta name="author" content="RateHere" />
+    <meta name="keywords" content="rating, profile, social, reputation, community, reviews, leaderboard" />
 
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1729" media="(prefers-color-scheme: dark)" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="RateHere" />
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png" />
+    
+    <!-- Splash Screens for iOS -->
+    <link rel="apple-touch-startup-image" href="/icons/icon-512x512.png" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ratehere.com/" />
     <meta property="og:title" content="RateHere - Rate Anything, Discover Everything" />
     <meta property="og:description" content="Create your profile, showcase your social links, and let the world rate you." />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/icons/icon-512x512.png" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ratehere.com/" />
+    <meta name="twitter:title" content="RateHere - Rate Anything, Discover Everything" />
+    <meta name="twitter:description" content="Create your profile, showcase your social links, and let the world rate you." />
+    <meta name="twitter:image" content="/icons/icon-512x512.png" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://firebaseio.com" />
+    <link rel="dns-prefetch" href="https://cloudinary.com" />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: sans-serif;">
+        <h1>JavaScript Required</h1>
+        <p>Please enable JavaScript to use RateHere.</p>
+      </div>
+    </noscript>
   </body>
 </html>

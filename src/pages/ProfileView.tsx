@@ -44,6 +44,7 @@ export default function ProfileView() {
   const [hasReviewed, setHasReviewed] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [reviewsRefreshTrigger, setReviewsRefreshTrigger] = useState(0);
+  const [actualProfileId, setActualProfileId] = useState<string>('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -77,6 +78,8 @@ export default function ProfileView() {
         }
         
         if (profileDoc && profileDoc.exists()) {
+          // Store the actual document ID for updates
+          setActualProfileId(profileId);
           setProfile({ id: profileDoc.id, ...profileDoc.data() } as Profile);
           
           // Track profile view (increment view count) using the actual document ID
@@ -124,11 +127,19 @@ export default function ProfileView() {
 
   const handleRating = async (rating: number) => {
     if (!user) {
-      toast.error('Please sign in to rate this profile');
+      toast.error('Please login or sign up to rate this profile', {
+        action: {
+          label: 'Login',
+          onClick: () => window.location.href = '/auth'
+        }
+      });
       return;
     }
 
-    if (!id) return;
+    if (!actualProfileId) {
+      toast.error('Profile not loaded yet');
+      return;
+    }
 
     try {
       if (hasRated) {
@@ -136,16 +147,16 @@ export default function ProfileView() {
         return;
       }
 
-      // Add rating to ratings collection
+      // Add rating to ratings collection using actual document ID
       await addDoc(collection(db, 'ratings'), {
-        profileId: id,
+        profileId: actualProfileId,
         userId: user.uid,
         ratingValue: rating,
         createdAt: new Date(),
       });
 
-      // Update profile rating
-      const profileRef = doc(db, 'profiles', id);
+      // Update profile rating using actual document ID
+      const profileRef = doc(db, 'profiles', actualProfileId);
       const newRatingCount = (profile?.ratingCount || 0) + 1;
       const newTotalRating = (profile?.rating || 0) * (profile?.ratingCount || 0) + rating;
       const newAverage = newTotalRating / newRatingCount;
@@ -155,8 +166,8 @@ export default function ProfileView() {
         ratingCount: increment(1),
       });
 
-      // Record rating history for analytics
-      await recordRatingHistory(id, rating);
+      // Record rating history for analytics using actual document ID
+      await recordRatingHistory(actualProfileId, rating);
 
       setUserRating(rating);
       setHasRated(true);
@@ -166,7 +177,7 @@ export default function ProfileView() {
         ratingCount: newRatingCount
       } : null);
 
-      toast.success('Thank you for rating!');
+      toast.success('Rating submitted! You can add a comment below (optional).');
     } catch (error) {
       console.error('Error submitting rating:', error);
       toast.error('Failed to submit rating');
@@ -174,7 +185,20 @@ export default function ProfileView() {
   };
 
   const handleReviewSubmit = async (reviewText: string) => {
-    if (!user || !id) return;
+    if (!user) {
+      toast.error('Please login or sign up to write a review', {
+        action: {
+          label: 'Login',
+          onClick: () => window.location.href = '/auth'
+        }
+      });
+      return;
+    }
+
+    if (!actualProfileId) {
+      toast.error('Profile not loaded yet');
+      return;
+    }
 
     if (hasReviewed) {
       toast.error('You have already reviewed this profile');
@@ -182,9 +206,9 @@ export default function ProfileView() {
     }
 
     try {
-      // Store user name and photo in the review document
+      // Store user name and photo in the review document using actual document ID
       await addDoc(collection(db, 'reviews'), {
-        profileId: id,
+        profileId: actualProfileId,
         userId: user.uid,
         ratingValue: userRating,
         reviewText: reviewText.trim(),
@@ -302,57 +326,55 @@ export default function ProfileView() {
             </Card>
           )}
 
-          {/* Rating & Review Section - Combined */}
-          {!hasRated && !hasReviewed ? (
-            <Card>
-              <CardContent className="pt-6">
-                <div className="space-y-6">
-                  <div className="text-center space-y-4">
-                    <h3 className="text-xl font-semibold text-foreground">
-                      Rate & Review This Profile
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {user
-                        ? 'Share your rating and feedback (comment optional)'
-                        : 'Sign in to rate and review this profile'}
-                    </p>
+          {/* Rating & Review Section - Always visible */}
+          <Card>
+            <CardContent className="pt-6">
+              <div className="space-y-6">
+                <div className="text-center space-y-4">
+                  <h3 className="text-xl font-semibold text-foreground">
+                    {hasRated ? 'Your Rating' : 'Rate & Review This Profile'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {!user
+                      ? 'Sign in to rate and review this profile'
+                      : hasRated
+                      ? 'Thank you for your feedback!'
+                      : 'Click on the stars to rate (comment optional)'}
+                  </p>
+                  <div className="flex flex-col items-center gap-2">
                     <div className="flex justify-center">
                       <StarRating
                         rating={userRating}
-                        interactive={!!user}
+                        interactive={true}
                         onRatingChange={handleRating}
                         size={40}
                       />
                     </div>
-                  </div>
-                  
-                  {/* Show review input after rating is given */}
-                  {userRating > 0 && (
-                    <ReviewInput
-                      profileId={id || ''}
-                      currentRating={userRating}
-                      hasRated={true}
-                      onReviewSubmit={handleReviewSubmit}
-                    />
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <Card>
-              <CardContent className="pt-6">
-                <div className="text-center space-y-4">
-                  <h3 className="text-xl font-semibold text-foreground">Your Rating</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Thank you for your feedback!
-                  </p>
-                  <div className="flex justify-center">
-                    <StarRating rating={userRating} size={40} />
+                    {!user && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.location.href = '/auth'}
+                        className="mt-2"
+                      >
+                        Login to Rate
+                      </Button>
+                    )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          )}
+                
+                {/* Always show review input section */}
+                <div className="border-t pt-6">
+                  <ReviewInput
+                    profileId={id || ''}
+                    currentRating={userRating}
+                    hasRated={hasRated}
+                    onReviewSubmit={handleReviewSubmit}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Reviews List */}
           <Card>
